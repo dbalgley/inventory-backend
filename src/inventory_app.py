@@ -3,7 +3,7 @@ import sys
 
 from flask import Flask
 
-from inventory_backend.app import create_app
+from app import create_app
 
 def main(args):
     try:

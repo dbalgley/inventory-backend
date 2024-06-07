@@ -1,10 +1,12 @@
 import logging
 
-from flask import render_template, current_app, jsonify
+from flask import Blueprint, render_template, current_app, jsonify
 from flask_cors import cross_origin
 
-from inventory_backend.app.routes import bp
-from inventory_backend.app.models.item import Item
+from app.routes import bp
+from app.models.item import Item
+
+bp = Blueprint('main_routes', __name__)
 
 logger = logging.getLogger('main_routes')
 
@@ -12,6 +14,12 @@ logger = logging.getLogger('main_routes')
 @cross_origin(origins='*')
 def index():
     return render_template('index.html')
+
+@bp.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'healthy'
+    })
 
 # @bp.route('/items', methods=['POST'])
 # def create_item():
